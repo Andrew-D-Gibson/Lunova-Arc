@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://dg60e25wjo6lv"]
+[gd_scene load_steps=2 format=3 uid="uid://dg60e25wjo6lv"]
+
+[ext_resource type="Script" path="res://controls.gd" id="1_ys38w"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -7,3 +9,89 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ys38w")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuBar" type="MenuBar" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="File" type="PopupMenu" parent="VBoxContainer/MenuBar"]
+item_count = 6
+item_0/text = "New Show"
+item_0/id = 0
+item_1/text = "Open Show"
+item_1/id = 4
+item_2/text = "Save"
+item_2/id = 1
+item_3/text = "Save As..."
+item_3/id = 2
+item_4/text = ""
+item_4/id = 3
+item_4/separator = true
+item_5/text = "Quit"
+item_5/id = 5
+
+[node name="Edit" type="PopupMenu" parent="VBoxContainer/MenuBar"]
+
+[node name="Help" type="PopupMenu" parent="VBoxContainer/MenuBar"]
+item_count = 1
+item_0/text = "Open Documentation"
+item_0/id = 0
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Box Layout" type="PanelContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer/TabContainer"]
+layout_mode = 2
+
+[node name="ColorRect2" type="ColorRect" parent="VBoxContainer/HSplitContainer/VSplitContainer/TabContainer/Box Layout"]
+layout_mode = 2
+color = Color(0.682353, 0.635294, 0.25098, 1)
+
+[node name="Show Simulation" type="PanelContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer/TabContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/HSplitContainer/VSplitContainer/TabContainer/Show Simulation"]
+layout_mode = 2
+color = Color(1, 0.0588235, 1, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Inspector" type="PanelContainer" parent="VBoxContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.33
+
+[connection signal="index_pressed" from="VBoxContainer/MenuBar/File" to="." method="_on_file_index_pressed"]
