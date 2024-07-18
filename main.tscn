@@ -1,6 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://dg60e25wjo6lv"]
+[gd_scene load_steps=15 format=3 uid="uid://dg60e25wjo6lv"]
 
 [ext_resource type="Script" path="res://controls.gd" id="1_ys38w"]
+[ext_resource type="Theme" uid="uid://dqdy3yivyml33" path="res://main.tres" id="2_3upjf"]
+[ext_resource type="Texture2D" uid="uid://bm4dik78y38as" path="res://UI Icons/skip-back.svg" id="2_jxt53"]
+[ext_resource type="Texture2D" uid="uid://c0pcd0f4esvjl" path="res://UI Icons/play.svg" id="2_wdmnm"]
+[ext_resource type="Texture2D" uid="uid://bi0d0i54smwx5" path="res://UI Icons/rewind.svg" id="3_hb4l1"]
+[ext_resource type="Script" path="res://Audio Components/Time Label.gd" id="3_six1v"]
+[ext_resource type="Texture2D" uid="uid://bhlolg06dpll0" path="res://UI Icons/fast-forward.svg" id="5_g4asc"]
+[ext_resource type="Script" path="res://Audio Components/Play Button.gd" id="6_76lbw"]
+[ext_resource type="Texture2D" uid="uid://kkc0y80q8r1x" path="res://UI Icons/skip-forward.svg" id="6_tnikv"]
+[ext_resource type="Texture2D" uid="uid://5ml2okr5gatn" path="res://UI Icons/plus.svg" id="8_n8jss"]
+[ext_resource type="Script" path="res://Audio Components/SongLoader.gd" id="9_i7k6a"]
+[ext_resource type="Script" path="res://Audio Components/AudioStreamPlayer.gd" id="10_dr0l3"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_1oppu"]
+device = -1
+keycode = 32
+unicode = 32
+
+[sub_resource type="Shortcut" id="Shortcut_i5y6y"]
+events = [SubResource("InputEventKey_1oppu")]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -11,7 +30,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ys38w")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="UI VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,10 +38,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MenuBar" type="MenuBar" parent="VBoxContainer"]
+[node name="MenuBar" type="MenuBar" parent="UI VBoxContainer"]
 layout_mode = 2
 
-[node name="File" type="PopupMenu" parent="VBoxContainer/MenuBar"]
+[node name="File" type="PopupMenu" parent="UI VBoxContainer/MenuBar"]
 item_count = 6
 item_0/text = "New Show"
 item_0/id = 0
@@ -38,60 +57,167 @@ item_4/separator = true
 item_5/text = "Quit"
 item_5/id = 5
 
-[node name="Edit" type="PopupMenu" parent="VBoxContainer/MenuBar"]
+[node name="Edit" type="PopupMenu" parent="UI VBoxContainer/MenuBar"]
 
-[node name="Help" type="PopupMenu" parent="VBoxContainer/MenuBar"]
+[node name="Help" type="PopupMenu" parent="UI VBoxContainer/MenuBar"]
 item_count = 1
 item_0/text = "Open Documentation"
 item_0/id = 0
 
-[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
+[node name="Audio Controls HBoxContainer" type="HBoxContainer" parent="UI VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Time Label" type="Label" parent="UI VBoxContainer/Audio Controls HBoxContainer" node_paths=PackedStringArray("audio")]
+layout_mode = 2
+theme = ExtResource("2_3upjf")
+text = "-:--:-- / -:--:--"
+script = ExtResource("3_six1v")
+audio = NodePath("../../Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer/AudioStreamPlayer")
+
+[node name="Control" type="Control" parent="UI VBoxContainer/Audio Controls HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Skip Back Button" type="Button" parent="UI VBoxContainer/Audio Controls HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Skip to beginning"
+icon = ExtResource("2_jxt53")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Rewind Button" type="Button" parent="UI VBoxContainer/Audio Controls HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Rewind"
+icon = ExtResource("3_hb4l1")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Play Button" type="Button" parent="UI VBoxContainer/Audio Controls HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Play"
+shortcut = SubResource("Shortcut_i5y6y")
+icon = ExtResource("2_wdmnm")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("6_76lbw")
+
+[node name="Fast Forward Button" type="Button" parent="UI VBoxContainer/Audio Controls HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Fast Forward"
+icon = ExtResource("5_g4asc")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Skip Forward Button" type="Button" parent="UI VBoxContainer/Audio Controls HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Skip to end"
+icon = ExtResource("6_tnikv")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Main Panels HSplitContainer" type="HSplitContainer" parent="UI VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer/HSplitContainer"]
+[node name="Show Panels VSplitContainer" type="VSplitContainer" parent="UI VBoxContainer/Main Panels HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TabContainer" type="TabContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
+[node name="Box Layout and Sim TabContainer" type="TabContainer" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Box Layout" type="PanelContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer/TabContainer"]
+[node name="Box Layout" type="PanelContainer" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Box Layout and Sim TabContainer"]
 layout_mode = 2
 
-[node name="ColorRect2" type="ColorRect" parent="VBoxContainer/HSplitContainer/VSplitContainer/TabContainer/Box Layout"]
+[node name="ColorRect" type="ColorRect" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Box Layout and Sim TabContainer/Box Layout"]
 layout_mode = 2
-color = Color(0.682353, 0.635294, 0.25098, 1)
+color = Color(0.678431, 0.678431, 0.678431, 1)
 
-[node name="Show Simulation" type="PanelContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer/TabContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Box Layout and Sim TabContainer/Box Layout"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+
+[node name="Add Box Button" type="Button" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Box Layout and Sim TabContainer/Box Layout/MarginContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+tooltip_text = "Add Spark Terminal"
+icon = ExtResource("8_n8jss")
+expand_icon = true
+
+[node name="Show Simulation" type="PanelContainer" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Box Layout and Sim TabContainer"]
+visible = false
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/HSplitContainer/VSplitContainer/TabContainer/Show Simulation"]
+[node name="ColorRect" type="ColorRect" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Box Layout and Sim TabContainer/Show Simulation"]
 layout_mode = 2
-color = Color(1, 0.0588235, 1, 1)
+color = Color(0.152941, 0.717647, 0.662745, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
+[node name="Audio and Tracks VBoxContainer" type="VBoxContainer" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer"]
+[node name="Audio PanelContainer" type="PanelContainer" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer"]
 custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer"]
+[node name="Choose Song Button" type="Button" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer"]
+custom_minimum_size = Vector2(400, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_3upjf")
+text = "Choose
+ Song
+"
+
+[node name="SongLoader" type="Node" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer"]
+script = ExtResource("9_i7k6a")
+
+[node name="FileDialog" type="FileDialog" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer"]
+title = "Open a File"
+initial_position = 1
+size = Vector2i(600, 600)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.mp3", "*.wav")
+
+[node name="AcceptDialog" type="AcceptDialog" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer"]
+title = "Error"
+initial_position = 1
+dialog_text = "Filetype unrecognized!  Songs must be in .wav or .mp3 format."
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer"]
+volume_db = 1.0
+script = ExtResource("10_dr0l3")
+
+[node name="Tracks ScrollContainer" type="ScrollContainer" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/ScrollContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Tracks ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Inspector" type="PanelContainer" parent="VBoxContainer/HSplitContainer"]
+[node name="Inspector" type="PanelContainer" parent="UI VBoxContainer/Main Panels HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.33
 
-[connection signal="index_pressed" from="VBoxContainer/MenuBar/File" to="." method="_on_file_index_pressed"]
+[connection signal="index_pressed" from="UI VBoxContainer/MenuBar/File" to="." method="_on_file_index_pressed"]
+[connection signal="pressed" from="UI VBoxContainer/Audio Controls HBoxContainer/Play Button" to="UI VBoxContainer/Audio Controls HBoxContainer/Play Button" method="_toggle_playing"]
+[connection signal="pressed" from="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer/Choose Song Button" to="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer/SongLoader" method="_on_choose_song_button_pressed"]
+[connection signal="file_selected" from="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer/FileDialog" to="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer/SongLoader" method="_load_song"]

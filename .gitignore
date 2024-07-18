@@ -13,3 +13,6 @@ export_presets.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# Ignore the python virtual environment
+Python Files/arc_env/

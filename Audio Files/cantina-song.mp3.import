@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cr7ysyhxyuutk"
+path="res://.godot/imported/cantina-song.mp3-2b922fcf3f0323e4ae4ef4a8f30fc032.mp3str"
+
+[deps]
+
+source_file="res://Audio Files/cantina-song.mp3"
+dest_files=["res://.godot/imported/cantina-song.mp3-2b922fcf3f0323e4ae4ef4a8f30fc032.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

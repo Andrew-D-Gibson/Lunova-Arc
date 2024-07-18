@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://m2h24g3l71eb"
+path="res://.godot/imported/the-rhythm-of-the-africa-wav-8837.mp3-29ae26d8d1fb19aeaa99e743eaf1cfdf.mp3str"
+
+[deps]
+
+source_file="res://Audio Files/the-rhythm-of-the-africa-wav-8837.mp3"
+dest_files=["res://.godot/imported/the-rhythm-of-the-africa-wav-8837.mp3-29ae26d8d1fb19aeaa99e743eaf1cfdf.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
