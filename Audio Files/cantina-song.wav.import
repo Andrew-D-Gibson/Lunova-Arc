@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bw22uvj0o66j2"
+path="res://.godot/imported/cantina-song.wav-e952cd1a58e1ca1c19132858c107c50d.sample"
+
+[deps]
+
+source_file="res://Audio Files/cantina-song.wav"
+dest_files=["res://.godot/imported/cantina-song.wav-e952cd1a58e1ca1c19132858c107c50d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

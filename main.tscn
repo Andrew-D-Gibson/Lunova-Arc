@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dg60e25wjo6lv"]
+[gd_scene load_steps=16 format=3 uid="uid://dg60e25wjo6lv"]
 
 [ext_resource type="Script" path="res://controls.gd" id="1_ys38w"]
 [ext_resource type="Theme" uid="uid://dqdy3yivyml33" path="res://main.tres" id="2_3upjf"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://5ml2okr5gatn" path="res://UI Icons/plus.svg" id="8_n8jss"]
 [ext_resource type="Script" path="res://Audio Components/SongLoader.gd" id="9_i7k6a"]
 [ext_resource type="Script" path="res://Audio Components/AudioStreamPlayer.gd" id="10_dr0l3"]
+[ext_resource type="Script" path="res://Audio Components/Audio Visualizer.gd" id="11_f2lu1"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_1oppu"]
 device = -1
@@ -171,6 +172,10 @@ size_flags_vertical = 3
 custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 
+[node name="Audio Visualizer" type="Node2D" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer" node_paths=PackedStringArray("audio_stream_player")]
+script = ExtResource("11_f2lu1")
+audio_stream_player = NodePath("../AudioStreamPlayer")
+
 [node name="Choose Song Button" type="Button" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer"]
 custom_minimum_size = Vector2(400, 150)
 layout_mode = 2
@@ -191,7 +196,7 @@ size = Vector2i(600, 600)
 ok_button_text = "Open"
 file_mode = 0
 access = 2
-filters = PackedStringArray("*.mp3", "*.wav")
+filters = PackedStringArray("*.wav")
 
 [node name="AcceptDialog" type="AcceptDialog" parent="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer"]
 title = "Error"
@@ -221,3 +226,4 @@ size_flags_stretch_ratio = 0.33
 [connection signal="pressed" from="UI VBoxContainer/Audio Controls HBoxContainer/Play Button" to="UI VBoxContainer/Audio Controls HBoxContainer/Play Button" method="_toggle_playing"]
 [connection signal="pressed" from="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer/Choose Song Button" to="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer/SongLoader" method="_on_choose_song_button_pressed"]
 [connection signal="file_selected" from="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer/FileDialog" to="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer/SongLoader" method="_load_song"]
+[connection signal="finished" from="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer/AudioStreamPlayer" to="UI VBoxContainer/Main Panels HSplitContainer/Show Panels VSplitContainer/Audio and Tracks VBoxContainer/Audio PanelContainer/AudioStreamPlayer" method="_on_finished"]
